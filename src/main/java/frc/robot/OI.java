@@ -23,7 +23,7 @@ public class OI {
     xEntry = joystickTable.getEntry("X");
     yEntry = joystickTable.getEntry("Y");
     xEntry.setDefaultDouble(0.0);
-    yEntry.setDefaultDouble(0.0);
+    yEntry.setDefaultDouble(0.0); //EEE
   }
 
 
