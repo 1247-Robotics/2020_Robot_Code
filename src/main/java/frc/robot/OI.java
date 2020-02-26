@@ -17,13 +17,13 @@ public class OI {
 
   // Joystick joystick
   public OI() {
-    System.out.println("OI initialized...");
+    System.out.println("OI initialized..."); 
     extreme = new Joystick(RobotMap.EXTREME);
     joystickTable = Robot.table.getSubTable("joystick");
     xEntry = joystickTable.getEntry("X");
     yEntry = joystickTable.getEntry("Y");
     xEntry.setDefaultDouble(0.0);
-    yEntry.setDefaultDouble(0.0); //EEE
+    yEntry.setDefaultDouble(0.0);
   }
 
 

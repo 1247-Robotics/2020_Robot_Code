@@ -1,35 +1,34 @@
 package frc.robot.Subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.Commands.DriveCommand;
 import frc.robot.Commands.RevolverCommand;
-
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANPIDController;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.ControlType;
-import com.revrobotics.CANSparkMax.ExternalFollower;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Revolver extends Subsystem {
+    TalonSRX revolverMotor;
+    Encoder revolverEncoder;
+
     public double angle;
     private NetworkTable revolverTable;
     private NetworkTableEntry angleEntry, slot1Entry, slot2Entry, slot3Entry, slot4Entry, slot5Entry;
     private boolean slot1, slot2, slot3, slot4, slot5;
+    private int clickAngle = 60;
 
     public Revolver() {
         System.out.println("Revolver initialization...");
+
+        revolverMotor = new TalonSRX(RobotMap.REVOLVER_MOTOR);
+
+        revolverEncoder = new Encoder(RobotMap.ENCODER_CHANNEL_A, RobotMap.ENCODER_CHANNEL_B);
+
         revolverTable = Robot.table.getSubTable("revolver");
-        
+
         slot1 = true;
         slot2 = true;
         slot3 = true;
@@ -37,11 +36,11 @@ public class Revolver extends Subsystem {
         slot5 = true;
         angle = 1.0;
 
-        slot1Entry = revolverTable.getEntry("slot1"); 
-        slot2Entry = revolverTable.getEntry("slot2"); 
-        slot3Entry = revolverTable.getEntry("slot3"); 
-        slot4Entry = revolverTable.getEntry("slot4"); 
-        slot5Entry = revolverTable.getEntry("slot5"); 
+        slot1Entry = revolverTable.getEntry("slot1");
+        slot2Entry = revolverTable.getEntry("slot2");
+        slot3Entry = revolverTable.getEntry("slot3");
+        slot4Entry = revolverTable.getEntry("slot4");
+        slot5Entry = revolverTable.getEntry("slot5");
         angleEntry = revolverTable.getEntry("angle");
 
         slot1Entry.setDefaultBoolean(false);
@@ -56,7 +55,6 @@ public class Revolver extends Subsystem {
         updateSlotSensors();
         angle += 0.01;
         slot1 = !slot1;
-        System.out.println(angle);
         slot1Entry.setBoolean(slot1);
         slot2Entry.setBoolean(slot2);
         slot3Entry.setBoolean(slot3);
@@ -65,26 +63,40 @@ public class Revolver extends Subsystem {
         angleEntry.setNumber(angle);
     }
 
-    private void updateSlotSensors(){
-        //read slot sensors into slot variables
+    private void updateSlotSensors() {
+        // read slot sensors into slot variables
     }
 
-    public void setSpeed(double speed) {
-        // set motor to parameter
+    public void setSpeed(double percent) {
+        revolverMotor.set(ControlMode.PercentOutput, percent);
+    }
+
+    private double getEncoderValue() {
+        return revolverEncoder.getDistance() * ((double) 360 / (double) 2045);
     }
 
     public void halfClick(boolean clockwise) {
-        // set motor + or - for parameter
-        try {
-            wait(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        double startValue = getEncoderValue();
+        if (clockwise) {
+            while (startValue + clickAngle / 2 > getEncoderValue())
+                revolverMotor.set(ControlMode.PercentOutput, .25);
+        } else {
+            while (startValue - clickAngle / 2 < getEncoderValue())
+                revolverMotor.set(ControlMode.PercentOutput, -.25);
         }
-        // set motor 0
+        revolverMotor.set(ControlMode.PercentOutput, 0);
     }
 
     public void click(boolean clockwise) {
-
+        double startValue = getEncoderValue();
+        if (clockwise) {
+            while (startValue + clickAngle > getEncoderValue())
+                revolverMotor.set(ControlMode.PercentOutput, .25);
+        } else {
+            while (startValue - clickAngle < getEncoderValue())
+                revolverMotor.set(ControlMode.PercentOutput, -.25);
+        }
+        revolverMotor.set(ControlMode.PercentOutput, 0);
     }
 
     @Override

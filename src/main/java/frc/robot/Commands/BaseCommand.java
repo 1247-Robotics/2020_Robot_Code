@@ -26,8 +26,8 @@ public abstract class BaseCommand extends Command {
     drive = new Drive();
     lift = new Lift();
     oi = new OI();
-    //revolver = new Revolver();
-    //intake = new Intake();
+    revolver = new Revolver();
+    intake = new Intake();
     //shooter = new Shooter();
   }
 

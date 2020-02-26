@@ -30,13 +30,13 @@ public class Drive extends Subsystem {
 
   public Drive() {
     System.out.println("Drive initialization...");
-    sparkLeft1 = new CANSparkMax(RobotMap.SPARK_CHANNEL_LEFT1, MotorType.kBrushless);
-    sparkLeft2 = new CANSparkMax(RobotMap.SPARK_CHANNEL_LEFT2, MotorType.kBrushless);
-    sparkLeft3 = new CANSparkMax(RobotMap.SPARK_CHANNEL_LEFT3, MotorType.kBrushless);
+    sparkLeft1 = new CANSparkMax(RobotMap.DRIVE_LEFT1, MotorType.kBrushless);
+    sparkLeft2 = new CANSparkMax(RobotMap.DRIVE_LEFT2, MotorType.kBrushless);
+    sparkLeft3 = new CANSparkMax(RobotMap.DRIVE_LEFT3, MotorType.kBrushless);
 
-    sparkRight1 = new CANSparkMax(RobotMap.SPARK_CHANNEL_RIGHT1, MotorType.kBrushless);
-    sparkRight2 = new CANSparkMax(RobotMap.SPARK_CHANNEL_RIGHT2, MotorType.kBrushless);
-    sparkRight3 = new CANSparkMax(RobotMap.SPARK_CHANNEL_RIGHT3, MotorType.kBrushless);
+    sparkRight1 = new CANSparkMax(RobotMap.DRIVE_RIGHT1, MotorType.kBrushless);
+    sparkRight2 = new CANSparkMax(RobotMap.DRIVE_RIGHT2, MotorType.kBrushless);
+    sparkRight3 = new CANSparkMax(RobotMap.DRIVE_RIGHT3, MotorType.kBrushless);
 
     sparkLeft1Encoder = new CANEncoder(sparkLeft1);
     sparkLeft2Encoder = new CANEncoder(sparkLeft2);
@@ -101,7 +101,6 @@ public class Drive extends Subsystem {
     int sign = (y < 0)? 1:-1;
     driveTrain.arcadeDrive(Math.pow(y, 2) * sign, -x*0.5);
     speed = rpmToMph();
-    System.out.println("Speed = " + speed);
   }
 
   private double getAvg(boolean left) {

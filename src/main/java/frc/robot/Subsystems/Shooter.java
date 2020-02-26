@@ -2,7 +2,6 @@ package frc.robot.Subsystems;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -10,12 +9,11 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.Commands.LiftCommand;
 import frc.robot.Commands.ShooterCommand;
 
 public class Shooter extends Subsystem {
-    private CANSparkMax spark;
-    private CANEncoder sparkEncoder;
+    private CANSparkMax shooterMotor;
+    private CANEncoder shooterMotorEncoder;
     private boolean shooterEnabled;
     private NetworkTable shooterTable;
     private NetworkTableEntry speedEntry;
@@ -23,9 +21,9 @@ public class Shooter extends Subsystem {
     public Shooter() {
         System.out.println("Shooter intialized...");
         shooterEnabled = false;
-        spark = new CANSparkMax(RobotMap.SHOOTER_SPARK, MotorType.kBrushless);
-        sparkEncoder = new CANEncoder(spark);
-        spark.restoreFactoryDefaults();
+        shooterMotor = new CANSparkMax(RobotMap.SHOOTER_MOTOR, MotorType.kBrushless);
+        shooterMotorEncoder = new CANEncoder(shooterMotor);
+        shooterMotor.restoreFactoryDefaults();
 
         shooterTable = Robot.table.getSubTable("shooter");
 
@@ -33,19 +31,16 @@ public class Shooter extends Subsystem {
         speedEntry.setDefaultNumber((int) 0);
     }
 
-    public void updateNetworkTable(){
-        speedEntry.setNumber(sparkEncoder.getVelocity());
+    public void updateNetworkTable() {
+        speedEntry.setNumber(shooterMotorEncoder.getVelocity());
     }
 
     public void toggle() {
         shooterEnabled = !shooterEnabled;
-    }
-
-
-    public void updateShooter() {
-        if (shooterEnabled) {
-
-        }
+        if (shooterEnabled)
+            shooterMotor.set(1);
+        else
+            shooterMotor.set(1);
     }
 
     @Override

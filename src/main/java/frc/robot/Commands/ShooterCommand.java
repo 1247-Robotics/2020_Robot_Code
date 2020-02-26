@@ -18,8 +18,7 @@ public class ShooterCommand extends BaseCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(oi.getButton(3)) shooter.toggle();
-    shooter.updateShooter();
+    if(oi.getButton(RobotMap.SHOOTER_BUTTON)) shooter.toggle();
     shooter.updateNetworkTable();
   }
 

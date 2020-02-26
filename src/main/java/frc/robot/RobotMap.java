@@ -3,13 +3,13 @@ package frc.robot;
 public class RobotMap {
 
   // ----------------------DRIVE TRAIN----------------------
-  public static final int SPARK_CHANNEL_RIGHT1 = 1;
-  public static final int SPARK_CHANNEL_RIGHT2 = 3;
-  public static final int SPARK_CHANNEL_RIGHT3 = 5;
+  public static final int DRIVE_RIGHT1 = 1;
+  public static final int DRIVE_RIGHT2 = 3;
+  public static final int DRIVE_RIGHT3 = 5;
 
-  public static final int SPARK_CHANNEL_LEFT1 = 6;
-  public static final int SPARK_CHANNEL_LEFT2 = 4;
-  public static final int SPARK_CHANNEL_LEFT3 = 2;
+  public static final int DRIVE_LEFT1 = 6;
+  public static final int DRIVE_LEFT2 = 4;
+  public static final int DRIVE_LEFT3 = 2;
 
   // ----------------------GAME PAD-------------------------
   public static final int RIGHT_PAD = 0;
@@ -36,14 +36,33 @@ public class RobotMap {
   public static final int GAME_PAD_11 = 11;
 
   // -----------------------INTAKE---------------------------
+  public static final int INTAKE_MOTOR = 5;
+  public static final int INTAKE_BUTTON = 2;
+  public static final String INTAKE_SLIDER = "SLIDER";
+
 
   // ----------------------REVOLVER--------------------------
+  public static final int REVOLVER_MOTOR = 3;
+  public static final int ENCODER_CHANNEL_A = 1;
+  public static final int ENCODER_CHANNEL_B = 2;
+
+  public static final int REVOLVER_LEFT_CLICK_BUTTON = 5;
+  public static final int REVOLVER_RIGHT_CLICK_BUTTON = 6;
+  public static final int REVOLVER_LEFT_HALF_CLICK_BUTTON = 3;
+  public static final int REVOLVER_RIGHT_HALF_CLICK_BUTTON = 4;
+
 
   // ----------------------SHOOTER--------------------------
 
-  public static final int SHOOTER_SPARK = 7;
+  public static final int SHOOTER_MOTOR = 9;
+  public static final int SHOOTER_BUTTON = 1;
 
 
   // ----------------------LIFT----------------------------
+  public static final int LEFT_SOLENOID = 0;
+  public static final int RIGHT_SOLENOID = 1;
+
+  public static final int LIFT_BUTTON = 12;
+
 
 }

@@ -15,6 +15,12 @@ public class LiftCommand extends BaseCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        if(oi.getButton(RobotMap.LIFT_BUTTON)) lift.changeState();
+        try{
+        wait(300);
+        }catch(Exception e){
+            
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

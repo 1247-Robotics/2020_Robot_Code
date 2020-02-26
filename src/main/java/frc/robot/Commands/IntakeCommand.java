@@ -1,5 +1,6 @@
 package frc.robot.Commands;
 
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 public class IntakeCommand extends BaseCommand {
@@ -18,7 +19,8 @@ public class IntakeCommand extends BaseCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      if(oi.getButton(1)) intake.spin();
+      if(oi.getButton(RobotMap.INTAKE_BUTTON)) intake.spin(oi.getAxis(RobotMap.INTAKE_SLIDER));
+      else intake.spin(0);
   }
 
   // Make this return true when this Command no longer needs to run execute()
