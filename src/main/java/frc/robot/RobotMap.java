@@ -54,8 +54,8 @@ public class RobotMap {
 
   // ----------------------SHOOTER--------------------------
 
-  public static final int SHOOTER_MOTOR = 9;
-  public static final int SHOOTER_BUTTON = 1;
+  public static final int SHOOTER_MOTOR = 15;
+  public static final int SHOOTER_BUTTON = 1 ;
 
 
   // ----------------------LIFT----------------------------

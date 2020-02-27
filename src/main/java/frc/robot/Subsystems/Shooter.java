@@ -38,9 +38,9 @@ public class Shooter extends Subsystem {
     public void toggle() {
         shooterEnabled = !shooterEnabled;
         if (shooterEnabled)
-            shooterMotor.set(1);
+            shooterMotor.set(-.8);
         else
-            shooterMotor.set(1);
+            shooterMotor.set(0);
     }
 
     @Override

@@ -11,9 +11,19 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class Intake extends Subsystem {
     TalonSRX intakeMotor;
+    public double setSpeed;
     public Intake() {
         System.out.println("Intake intialized...");
+        setSpeed = .8;
         intakeMotor = new TalonSRX(RobotMap.INTAKE_MOTOR);
+    }
+
+    public void increment(){
+        setSpeed += 0.01;
+    }
+
+    public void decrement(){
+        setSpeed -= 0.01;
     }
 
     public void spin(double percent){

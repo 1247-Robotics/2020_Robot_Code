@@ -3,10 +3,14 @@ package frc.robot.Commands;
 import frc.robot.RobotMap;
 
 public class ShooterCommand extends BaseCommand {
+  private int loopTime;
+  private int minWaitTime;
 
   public ShooterCommand() {
     System.out.println("ShooterCommand Initialization...");
     requires(shooter);
+    loopTime = 0;
+    minWaitTime = 100;
   }
 
   // Called just before this Command runs the first time
@@ -18,7 +22,17 @@ public class ShooterCommand extends BaseCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(oi.getButton(RobotMap.SHOOTER_BUTTON)) shooter.toggle();
+
+
+
+    if (loopTime < minWaitTime) {
+      loopTime++;
+  } else {
+      if (oi.getButton(RobotMap.SHOOTER_BUTTON)) {
+          loopTime = 0;
+          shooter.toggle();
+              }
+  }
     shooter.updateNetworkTable();
   }
 

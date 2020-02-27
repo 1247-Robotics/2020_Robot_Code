@@ -18,7 +18,7 @@ public class Revolver extends Subsystem {
     private NetworkTable revolverTable;
     private NetworkTableEntry angleEntry, slot1Entry, slot2Entry, slot3Entry, slot4Entry, slot5Entry;
     private boolean slot1, slot2, slot3, slot4, slot5;
-    private int clickAngle = 60;
+    private int clickAngle = 66;
 
     public Revolver() {
         System.out.println("Revolver initialization...");
@@ -26,6 +26,8 @@ public class Revolver extends Subsystem {
         revolverMotor = new TalonSRX(RobotMap.REVOLVER_MOTOR);
 
         revolverEncoder = new Encoder(RobotMap.ENCODER_CHANNEL_A, RobotMap.ENCODER_CHANNEL_B);
+
+        revolverEncoder.setDistancePerPulse(((double) 360 / (double) 2048));
 
         revolverTable = Robot.table.getSubTable("revolver");
 
@@ -52,6 +54,7 @@ public class Revolver extends Subsystem {
     }
 
     public void updateNetworkTable() {
+        System.out.println(revolverEncoder.getDistance());
         updateSlotSensors();
         angle += 0.01;
         slot1 = !slot1;
@@ -63,6 +66,14 @@ public class Revolver extends Subsystem {
         angleEntry.setNumber(angle);
     }
 
+    public void trimLeft(){
+        setSpeed(.2);
+    }
+
+    public void trimRight(){
+        setSpeed(-.2);
+    }
+
     private void updateSlotSensors() {
         // read slot sensors into slot variables
     }
@@ -72,7 +83,7 @@ public class Revolver extends Subsystem {
     }
 
     private double getEncoderValue() {
-        return revolverEncoder.getDistance() * ((double) 360 / (double) 2045);
+        return revolverEncoder.getDistance();
     }
 
     public void halfClick(boolean clockwise) {

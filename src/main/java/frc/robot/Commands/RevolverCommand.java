@@ -18,6 +18,7 @@ public class RevolverCommand extends BaseCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
       if(oi.getButton(RobotMap.REVOLVER_LEFT_CLICK_BUTTON)){
           revolver.click(false);
       } else if(oi.getButton(RobotMap.REVOLVER_RIGHT_CLICK_BUTTON)){
@@ -26,8 +27,18 @@ public class RevolverCommand extends BaseCommand {
         revolver.halfClick(false);
       }else if(oi.getButton(RobotMap.REVOLVER_RIGHT_HALF_CLICK_BUTTON)){
         revolver.halfClick(true);
+      }else{
+        revolver.setSpeed(0);
       }
-      //revolver.updateNetworkTable();
+
+      if(oi.getButton(7)) revolver.trimLeft();
+      else if(oi.getButton(9)) revolver.trimRight();
+      /*
+      if(oi.getButton(3)) revolver.setSpeed(.4);
+      else if(oi.getButton(4)) revolver.setSpeed(-.4);
+      else revolver.setSpeed(0);
+      */
+      revolver.updateNetworkTable();
   } 
 
   // Make this return true when this Command no longer needs to run execute()

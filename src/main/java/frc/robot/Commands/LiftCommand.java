@@ -3,9 +3,14 @@ package frc.robot.Commands;
 import frc.robot.RobotMap;
 
 public class LiftCommand extends BaseCommand {
+    private int loopTime;
+    private int minWaitTime;
+
     public LiftCommand() {
         System.out.println("LiftCommand Initialization...");
         requires(lift);
+        loopTime = 0;
+        minWaitTime = 100;
     }
 
     @Override
@@ -15,11 +20,13 @@ public class LiftCommand extends BaseCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        if(oi.getButton(RobotMap.LIFT_BUTTON)) lift.changeState();
-        try{
-        wait(300);
-        }catch(Exception e){
-            
+        if (loopTime < minWaitTime) {
+            loopTime++;
+        } else {
+            if (oi.getButton(RobotMap.LIFT_BUTTON)) {
+                loopTime = 0;
+                lift.changeState();
+            }
         }
     }
 

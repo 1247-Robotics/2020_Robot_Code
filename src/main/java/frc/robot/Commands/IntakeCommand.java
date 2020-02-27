@@ -19,8 +19,11 @@ public class IntakeCommand extends BaseCommand {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      if(oi.getButton(RobotMap.INTAKE_BUTTON)) intake.spin(oi.getAxis(RobotMap.INTAKE_SLIDER));
+      if(oi.getButton(8)) intake.increment();
+      if(oi.getButton(10)) intake.decrement();
+      if(oi.getButton(RobotMap.INTAKE_BUTTON)) intake.spin(intake.setSpeed);
       else intake.spin(0);
+      System.out.println("Intake setSpeed: " + intake.setSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()

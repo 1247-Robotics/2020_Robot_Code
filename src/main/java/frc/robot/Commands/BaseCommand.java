@@ -28,7 +28,7 @@ public abstract class BaseCommand extends Command {
     oi = new OI();
     revolver = new Revolver();
     intake = new Intake();
-    //shooter = new Shooter();
+    shooter = new Shooter();
   }
 
   // Called just before this Command runs the first time
